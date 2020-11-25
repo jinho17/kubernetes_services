@@ -6,4 +6,5 @@ mkdir -p /etc/nginx/ssl
 openssl req -newkey rsa:4096 -days 365 -nodes -x509 -subj "/C=KR/ST=Seoul/L=Seoul/O=42Seoul/OU=Kim/CN=localhost" -keyout /etc/nginx/ssl/localhost.key -out /etc/nginx/ssl/localhost.crt
 chmod 600 etc/nginx/ssl/localhost.crt etc/nginx/ssl/localhost.key
 
-# nginx
+# /usr/sbin/sshd
+nginx -g 'daemon off;'
