@@ -7,11 +7,11 @@ mkdir -p /etc/nginx/ssl
 openssl req -newkey rsa:4096 -days 365 -nodes -x509 -subj "/C=KR/ST=Seoul/L=Seoul/O=42Seoul/OU=Kim/CN=localhost" -keyout /etc/nginx/ssl/localhost.key -out /etc/nginx/ssl/localhost.crt
 chmod 600 etc/nginx/ssl/localhost.crt etc/nginx/ssl/localhost.key
 
-#phpmyadmin
-mkdir -p /var/lib/nginx/html
-wget https://files.phpmyadmin.net/phpMyAdmin/4.9.0.1/phpMyAdmin-4.9.0.1-all-languages.tar.gz
-tar -zxvf phpMyAdmin-4.9.0.1-all-languages.tar.gz
-mv phpMyAdmin-4.9.0.1-all-languages /var/lib/nginx/html/phpmyadmin
-mv /tmp/config.inc.php /var/lib/nginx/html/phpmyadmin/config.inc.php
+#wordpress
+mkdir -p /var/lib/nginx/html/wordpress
+wget https://wordpress.org/latest.tar.gz
+tar xf latest.tar.gz
+mv ./wordpress/* /var/lib/nginx/html/wordpress
+mv /tmp/wp-config.php /var/lib/nginx/html/wordpress
 
-php -S 0.0.0.0:5000 -t /var/lib/nginx/html/phpmyadmin
+php -S 0.0.0.0:5050 -t /var/lib/nginx/html/wordpress
