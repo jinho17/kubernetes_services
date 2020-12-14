@@ -1,6 +1,9 @@
+mkdir -p /var/run/nginx
+mkdir -p /var/run/php
+
 apk update
 apk add nginx openssl \
-        php7 php7-fpm php7-mcrypt php7-soap php7-openssl php7-gmp php7-pdo_odbc php7-json php7-dom php7-pdo php7-zip  php7-mysqli php7-sqlite3 php7-apcu php7-pdo_pgsql php7-bcmath php7-gd  php7-odbc php7-pdo_mysql php7-pdo_sqlite php7-gettext php7-xmlreader php7-xmlrpc php7-bz2 php7-memcache  php7-iconv php7-pdo_dblib php7-curl php7-ctype
+        fcgi php7 php7-fpm php7-mcrypt php7-soap php7-openssl php7-gmp php7-pdo_odbc php7-json php7-dom php7-pdo php7-zip  php7-mysqli php7-sqlite3 php7-apcu php7-pdo_pgsql php7-bcmath php7-gd  php7-odbc php7-pdo_mysql php7-pdo_sqlite php7-gettext php7-xmlreader php7-xmlrpc php7-bz2 php7-memcache  php7-iconv php7-pdo_dblib php7-curl php7-ctype
 
 #ssl
 mkdir -p /etc/nginx/ssl
@@ -14,4 +17,10 @@ tar xf latest.tar.gz
 mv ./wordpress/* /var/lib/nginx/html/wordpress
 mv /tmp/wp-config.php /var/lib/nginx/html/wordpress
 
-php -S 0.0.0.0:5050 -t /var/lib/nginx/html/wordpress
+#phpmyadmin 페이지 열었을 때, file not found error 때문에 권한 설정
+chmod a+x /var
+chmod a+x /var/lib
+chmod a+x /var/lib/nginx
+
+#php -S 0.0.0.0:5050 -t /var/lib/nginx/html/wordpress
+php-fpm7 -D && nginx -g 'daemon off;'

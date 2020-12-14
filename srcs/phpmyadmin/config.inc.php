@@ -14,7 +14,7 @@
  * This is needed for cookie based authentication to encrypt password in
  * cookie. Needs to be 32 chars long.
  */
-$cfg['blowfish_secret'] = ''; /* YOU MUST FILL IN THIS FOR COOKIE AUTH! */
+$cfg['blowfish_secret'] = '1234567890'; /* YOU MUST FILL IN THIS FOR COOKIE AUTH! */
 
 /**
  * Servers configuration
@@ -28,14 +28,13 @@ $i++;
 /* Authentication type */
 $cfg['Servers'][$i]['auth_type'] = 'cookie';
 /* Server parameters */
-$cfg['Servers'][$i]['host'] = 'wp-mysql';
 $cfg['Servers'][$i]['compress'] = false;
 $cfg['Servers'][$i]['AllowNoPassword'] = true;
+$cfg['Servers'][$i]['host'] = "mysql-service";
 $cfg['Servers'][$i]['port'] = "3306";
 $cfg['Servers'][$i]['user'] = "root";
 $cfg['Servers'][$i]['password'] = "a1234";
 $cfg['Servers'][$i]['extension'] = 'mysqli';
-
 
 
 /**
@@ -43,10 +42,10 @@ $cfg['Servers'][$i]['extension'] = 'mysqli';
  */
 
 /* User used to manipulate with storage */
- $cfg['Servers'][$i]['controlhost'] = 'wp-mysql';
- $cfg['Servers'][$i]['controlport'] = '3306';
- $cfg['Servers'][$i]['controluser'] = 'root';
- $cfg['Servers'][$i]['controlpass'] = 'a1234';
+ #$cfg['Servers'][$i]['controlhost'] = 'wp-mysql';
+ #$cfg['Servers'][$i]['controlport'] = '3306';
+ #$cfg['Servers'][$i]['controluser'] = 'jinkim';
+ #$cfg['Servers'][$i]['controlpass'] = 'a1234';
 
 /* Storage database and tables */
 // $cfg['Servers'][$i]['pmadb'] = 'phpmyadmin';
@@ -79,6 +78,8 @@ $cfg['Servers'][$i]['extension'] = 'mysqli';
  */
 $cfg['UploadDir'] = '';
 $cfg['SaveDir'] = '';
+$cfg['PmaAbsoluteUri'] = './';
+
 
 /**
  * Whether to display icons or text or both icons and text in table row

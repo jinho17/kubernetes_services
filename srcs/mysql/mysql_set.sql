@@ -1,7 +1,7 @@
 FLUSH PRIVILEGES;
 CREATE DATABASE IF NOT EXISTS wordpress;
-GRANT ALL ON wordpress.* TO 'root'@'%' IDENTIFIED BY 'a1234';
-GRANT ALL ON wordpress.* TO 'root'@'localhost' IDENTIFIED BY 'a1234';
-GRANT ALL ON wordpress.* TO 'root'@'127.0.0.1' IDENTIFIED BY 'a1234';
-GRANT ALL ON wordpress.* TO 'root'@'wp-mysql' IDENTIFIED BY 'a1234';
+set password for 'root'@'localhost' = PASSWORD('a1234');
+GRANT ALL ON *.* TO 'root'@'localhost' IDENTIFIED BY 'a1234';
+GRANT ALL ON *.* TO 'root'@'%' IDENTIFIED BY 'a1234';
+GRANT ALL ON *.* TO 'jinkim'@'%' IDENTIFIED BY 'a1234';
 FLUSH PRIVILEGES;

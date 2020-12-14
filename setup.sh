@@ -1,13 +1,17 @@
 UserDir="/Users/$USER"
 
 ##minikube
-#minikube start --driver=virtualbox --extra-config=apiserver.service-node-port-range=1-35000
-#mv "$UserDir"/.minikube "$UserDir"/goinfre/minikube
-#ln -sf "$UserDir"/goinfre/minikube $UserDir/.minikube
+minikube start --driver=virtualbox --extra-config=apiserver.service-node-port-range=1-35000 \
+          --addons=default-storageclass --addons=metallb --addons=storage-provisioner --addons=dashboard --addons=metrics-server
+mv "$UserDir"/.minikube "$UserDir"/goinfre/minikube
+ln -sf "$UserDir"/goinfre/minikube $UserDir/.minikube
 
 #external ip
-EX_IP=$(minikube ip)
-sed "s/EX_IP/$EX_IP/g" srcs/metallb.yaml > srcs/metallb_copy.yaml
+MINIKUBE_IP=$(minikube ip)
+sed "s/MINIKUBE_IP/$MINIKUBE_IP/g" srcs/metallb.yaml > srcs/metallb_copy.yaml
+sed "s/MINIKUBE_IP/$MINIKUBE_IP/g" srcs/ftps/install_ori.sh > srcs/ftps/install.sh
+
+
 
 #metallb namespace
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/namespace.yaml
@@ -44,6 +48,12 @@ docker build -t wordpress-image srcs/wordpress
 #kubectl apply -f srcs/wordpress.yaml
 
 kubectl apply -k srcs/
+
+#ftps
+eval $(minikube docker-env)
+docker build -t ftps-image srcs/ftps
+kubectl apply -f srcs/ftps.yaml
+rm -rf srcs/ftps/install.sh
 
 ###url
 #minikube service nginx
