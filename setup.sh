@@ -3,8 +3,6 @@ UserDir="/Users/$USER"
 ##minikube
 minikube start --driver=virtualbox --extra-config=apiserver.service-node-port-range=1-35000 \
           --addons=default-storageclass --addons=metallb --addons=storage-provisioner --addons=dashboard --addons=metrics-server
-#minikube start --extra-config=apiserver.service-node-port-range=1-35000 \
-#          --addons=default-storageclass --addons=metallb --addons=storage-provisioner --addons=dashboard --addons=metrics-server
 mv "$UserDir"/.minikube "$UserDir"/goinfre/minikube
 ln -sf "$UserDir"/goinfre/minikube $UserDir/.minikube
 
@@ -28,7 +26,6 @@ docker build -t mysql-image srcs/mysql
 #kubectl apply -f srcs/mysql.yaml
 
 #nginx 디플로이먼트
-eval $(minikube docker-env)
 kubectl apply -f srcs/nginx-svc.yaml
 HTTPS_PORT=$(kubectl describe service nginx-service | grep NodePort | grep https | cut -d "s" -f2 | sed 's/^ *//' | cut -d "/" -f1)
 echo http port number : 
@@ -52,19 +49,16 @@ kubectl apply -f srcs/nginx.yaml
 rm -rf srcs/nginx/nginx_1.conf 
 
 #php
-eval $(minikube docker-env)
 docker build -t php-image srcs/phpmyadmin
 kubectl apply -f srcs/phpmyadmin.yaml
 
 #wordpress
-eval $(minikube docker-env)
 docker build -t wordpress-image srcs/wordpress
 #kubectl apply -f srcs/wordpress.yaml
 
 kubectl apply -k srcs/
 
 #ftps
-eval $(minikube docker-env)
 docker build -t ftps-image srcs/ftps
 kubectl apply -f srcs/ftps.yaml
 
@@ -82,21 +76,19 @@ kubectl create secret generic grafana-secret \
 
 
 #influxdb
-eval $(minikube docker-env)
 docker build -t influxdb-image srcs/influxdb
 kubectl apply -f srcs/influxdb.yaml
 #telegraf
-eval $(minikube docker-env)
 docker build -t telegraf-image srcs/telegraf
 kubectl apply -f srcs/telegraf.yaml
 #grafana
-eval $(minikube docker-env)
 docker build -t grafana-image srcs/grafana
 kubectl apply -f srcs/grafana.yaml
+
 
 ###ssh test
 #rm $HOME/.ssh/known_hosts
 #ssh $(minikube ip) -p 22
 
 ###ftp test
-#ftp $(minikube ip) 21
+#ftp $(minikube ip)

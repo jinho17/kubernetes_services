@@ -7,13 +7,11 @@ spec:
   selector:
     matchLabels:
       app: phpmyadmin-app
-      #tier: frontend
   template:
     metadata:
       name: phpmyadmin-pod
       labels:
         app: phpmyadmin-app
-        #tier: frontend
     spec:
       containers:
         - name: phpmyadmin

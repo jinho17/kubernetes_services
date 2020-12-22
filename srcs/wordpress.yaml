@@ -7,13 +7,11 @@ spec:
   selector:
     matchLabels:
       app: wordpress-app
-      #tier: frontend
   template:
     metadata:
       name: wordpress-pod
       labels:
         app: wordpress-app
-        #tier: frontend
     spec:
       containers:
       - image: wordpress-image

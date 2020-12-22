@@ -6,14 +6,12 @@ spec:
   selector:
     matchLabels:
       app: nginx-app
-      #tier: backend
   replicas: 1
   template:
     metadata:
       name: nginx-pod
       labels:
         app: nginx-app
-        #tier: backend
     spec:
       containers:
       - name: nginx

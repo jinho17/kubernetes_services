@@ -19,5 +19,4 @@ spec:
     targetPort: 22
   selector:
     app: nginx-app
-    #tier: backend
   type: LoadBalancer

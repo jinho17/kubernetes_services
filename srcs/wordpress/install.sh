@@ -17,7 +17,7 @@ tar xf latest.tar.gz
 mv ./wordpress/* /var/lib/nginx/html/wordpress
 mv /tmp/wp-config.php /var/lib/nginx/html/wordpress
 
-#phpmyadmin 페이지 열었을 때, file not found error 때문에 권한 설정
+##file not found error
 chmod a+x /var
 chmod a+x /var/lib
 chmod a+x /var/lib/nginx
