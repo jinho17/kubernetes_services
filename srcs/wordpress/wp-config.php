@@ -30,8 +30,6 @@ define( 'DB_PASSWORD', 'a1234' );
 
 /** MySQL hostname */
 define( 'DB_HOST', 'mysql-service' );
-#define( 'WP_HOME', 'https://192.168.99.0:5050' );
-#define( 'WP_SITEURL', 'https://192.168.99.0:5050' );
 
 /** Database Charset to use in creating database tables. */
 define( 'DB_CHARSET', 'utf8mb4' );

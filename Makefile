@@ -1,5 +1,5 @@
-FILE = influxdb
-PORT = -p 8086:8086
+FILE = nginx
+PORT = -p 80:80 -p 443:443 -p 22:22
 
 SVC = grafana
 IM = $(SVC)-image

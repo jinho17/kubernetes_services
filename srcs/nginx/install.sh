@@ -1,4 +1,4 @@
-apk update
+#apk update
 apk add nginx openssl openssh
 mkdir -p /var/run/nginx
 
@@ -13,5 +13,6 @@ echo jinkim:a1234 | chpasswd
 ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key -q -N ""
 /usr/sbin/sshd
 
+echo @@nginx start@@
 ##nginx start
 nginx -g 'daemon off;'
