@@ -1,28 +1,3 @@
-apiVersion: v1
-kind: Service
-metadata:
-  name: nginx-service
-  annotations:
-    metallb.universe.tf/allow-shared-ip: ft_services
-  labels:
-    app: nginx-app
-spec:
-  ports:
-  - name: http
-    port: 80
-    targetPort: 80
-  - name: https
-    port: 443
-    targetPort: 443
-  - name: ssh
-    port: 22
-    targetPort: 22
-  selector:
-    app: nginx-app
-    #tier: backend
-  type: LoadBalancer
-  #loadBalancerIP: 192.168.99.0
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:

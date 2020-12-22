@@ -1,28 +1,32 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: ftps
+  name: ftps-service
   annotations:
     metallb.universe.tf/allow-shared-ip: ft_services
   labels:
-    app: ftps
+    app: ftps-app
 spec:
   ports:
     - port: 21
+      targetPort: 21
       name: ftps
-    - port: 21000
+    - port: 20
+      targetPort: 20
       name: ftps-data
+    - port: 40000
+      targetPort: 40000
+      name: pasv40000
   selector:
-    app: ftps
+    app: ftps-app
   type: LoadBalancer
-  #loadBalancerIP: 192.168.99.0
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: ftps-pv-claim
   labels:
-    app: ftps
+    app: ftps-app
 spec:
   accessModes:
     - ReadWriteOnce
@@ -33,38 +37,34 @@ spec:
 apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
 kind: Deployment
 metadata:
-  name: ftps
-  labels:
-    app: ftps
+  name: ftps-deployment
 spec:
   selector:
     matchLabels:
-      app: ftps
+      app: ftps-app
   replicas: 1
   strategy:
     type: Recreate
   template:
     metadata:
+      name: ftps-pod
       labels:
-        app: ftps
+        app: ftps-app
     spec:
       containers:
       - image: ftps-image
         imagePullPolicy: Never
         name: ftps
-        env:
-        - name: FTP_USER
-          value: jinkim
-        - name: FTP_PASSWORD
-          value: a1234
         ports:
         - containerPort: 21
           hostPort: 21
-        - containerPort: 21000
-          hostPort: 21000
+        - containerPort: 20
+          hostPort: 20
+        - containerPort: 40000
+          hostPort: 40000
         volumeMounts:
         - name: ftps-persistent-storage
-          mountPath: /ftps
+          mountPath: /var/ftp/data
       volumes:
       - name: ftps-persistent-storage
         persistentVolumeClaim:
